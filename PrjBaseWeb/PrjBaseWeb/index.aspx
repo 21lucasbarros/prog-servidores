@@ -9,6 +9,10 @@ Inherits="PrjBaseWeb.index" %>
     <link href="estilo.css" rel="stylesheet" />
   </head>
   <body>
+    <div class="grid-background">
+      <div class="grid-overlay"></div>
+    </div>
+
     <form runat="server">
       <div class="container">
         <h1>Clinica Emagrecimento</h1>
