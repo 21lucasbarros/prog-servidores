@@ -32,6 +32,7 @@ namespace PrjBaseWeb
                 lbErroCPF.Text =
                 lbErroDataN.Text =
                 lbErroPeso.Text =
+                lbErroSexo.Text =
                 lbErroAltura.Text = String.Empty;
         }
 

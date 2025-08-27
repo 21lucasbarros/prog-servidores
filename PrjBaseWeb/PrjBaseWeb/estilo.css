@@ -1,56 +1,144 @@
-﻿/* Estilo para inputs */
-.input-basic {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 14px;
+﻿body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    160deg,
+    rgba(27, 60, 83, 1) 16%,
+    rgba(249, 243, 239, 1) 84%
+  );
+  color: #010101;
+  font-family: Arial, sans-serif;
 }
 
-/* Estilo para botões */
-.button-basic {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
+.container {
+  width: 600px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
 
-    .button-basic:hover {
-        background-color: #0056b3;
-    }
-
-/* Estilo para tabelas */
-.table-basic {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
 }
 
-    .table-basic th,
-    .table-basic td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-
-    .table-basic th {
-        background-color: #f2f2f2;
-    }
-
-/* Estilo para títulos */
-.title-basic {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 16px;
+.form-group-botoes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
 }
 
-/* Estilo para parágrafos */
-.text-basic {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 2px;
+}
+
+#lbSexo {
+  font-weight: bold;
+}
+
+.form-group span {
+  margin-right: 15px;
+}
+
+.form-group:has(input[type="radio"]) {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-group span {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.form-group span label {
+  margin-bottom: 0;
+  font-weight: normal;
+  display: inline;
+  vertical-align: middle;
+}
+
+.form-group input[type="radio"] {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.form-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.form-group:has(input[type="radio"]) {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.form-group:has(input[type="radio"]) asp\:Label[id*="Erro"] {
+  flex-basis: 100%;
+  margin-top: 5px;
+}
+
+.form-group:has(input[type="submit"]) {
+  flex-direction: row;
+  gap: 10px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+input[type="submit"],
+.aspNetButton,
+input[value="Ok"],
+input[value="Limpar"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+input[value="Ok"] {
+  background-color: #007bff;
+  color: white;
+}
+
+input[value="Ok"]:hover {
+  background-color: #0056b3;
+}
+
+input[value="Limpar"] {
+  background-color: #6c757d;
+  color: white;
+  margin-left: 10px;
+}
+
+input[value="Limpar"]:hover {
+  background-color: #545b62;
 }

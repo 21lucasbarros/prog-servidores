@@ -6,66 +6,48 @@ Inherits="PrjBaseWeb.index" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head runat="server">
     <title>Clinica de Emagrecimento</title>
+    <link href="estilo.css" rel="stylesheet" />
   </head>
   <body>
-    <link href="estilo.css" rel="stylesheet" />
     <form runat="server">
-      <div style="width: 600px">
+      <div class="container">
         <h1>Clinica Emagrecimento</h1>
-        <div />
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-self: baseline;
-          "
-        >
-          <asp:Label ID="lbNome" runat="server" Text="Nome"></asp:Label>
-          <asp:TextBox ID="txNome" runat="server"></asp:TextBox>
+        <div class="form-group">
+          <asp:Label
+            ID="lbNome"
+            runat="server"
+            Text="Nome"
+            AssociatedControlID="txNome"
+          />
+          <asp:TextBox ID="txNome" runat="server" />
           <asp:Label ID="lbErro" runat="server" ForeColor="Red" />
         </div>
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-self: baseline;
-          "
-        >
-          <asp:Label ID="lbCPF" runat="server" Text="CPF"></asp:Label>
-          <asp:TextBox ID="txCPF" runat="server"></asp:TextBox>
+        <div class="form-group">
+          <asp:Label
+            ID="lbCPF"
+            runat="server"
+            Text="CPF"
+            AssociatedControlID="txCPF"
+          />
+          <asp:TextBox ID="txCPF" runat="server" />
           <asp:Label ID="lbErroCPF" runat="server" ForeColor="Red" />
         </div>
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-self: baseline;
-          "
-        >
+        <div class="form-group">
           <asp:Label
             ID="lbDAtaNascimento"
             runat="server"
             Text="Nascimento"
-          ></asp:Label>
-          <asp:TextBox ID="txDataNascimento" runat="server"></asp:TextBox>
+            AssociatedControlID="txDataNascimento"
+          />
+          <asp:TextBox ID="txDataNascimento" runat="server" />
           <asp:Label ID="lbErroDataN" runat="server" ForeColor="Red" />
         </div>
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            text-align: center;
-          "
-        >
-          <asp:Label ID="lbSexo" runat="server" Text="Sexo"></asp:Label>
+        <div class="form-group">
+          <asp:Label ID="lbSexo" runat="server" Text="Sexo" />
           <span>
             <asp:RadioButton
               ID="rbFeminino"
@@ -93,40 +75,29 @@ Inherits="PrjBaseWeb.index" %>
           <asp:Label ID="lbErroSexo" runat="server" ForeColor="Red" />
         </div>
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-self: baseline;
-          "
-        >
-          <asp:Label ID="lbPeso" runat="server" Text="Peso"></asp:Label>
-          <asp:TextBox ID="txPeso" runat="server"></asp:TextBox>
+        <div class="form-group">
+          <asp:Label
+            ID="lbPeso"
+            runat="server"
+            Text="Peso"
+            AssociatedControlID="txPeso"
+          />
+          <asp:TextBox ID="txPeso" runat="server" />
           <asp:Label ID="lbErroPeso" runat="server" ForeColor="Red" />
         </div>
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-self: baseline;
-          "
-        >
-          <asp:Label ID="lbAltura" runat="server" Text="Altura"></asp:Label>
-          <asp:TextBox ID="txAltura" runat="server"></asp:TextBox>
+        <div class="form-group">
+          <asp:Label
+            ID="lbAltura"
+            runat="server"
+            Text="Altura"
+            AssociatedControlID="txAltura"
+          />
+          <asp:TextBox ID="txAltura" runat="server" />
           <asp:Label ID="lbErroAltura" runat="server" ForeColor="Red" />
         </div>
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-self: baseline;
-          "
-        >
+        <div class="form-group-botoes">
           <asp:Button
             ID="Button1"
             runat="server"
@@ -138,18 +109,17 @@ Inherits="PrjBaseWeb.index" %>
             runat="server"
             Text="Limpar"
             OnClick="Button2_Click"
+            CausesValidation="false"
           />
         </div>
 
-        <div
-          style="
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            align-self: baseline;
-          "
-        >
-          <asp:Label ID="lbResultado" runat="server" Text="Resultado:" />
+        <div class="form-group">
+          <asp:Label
+            ID="lbResultado"
+            runat="server"
+            Text="Resultado:"
+            AssociatedControlID="txResultado"
+          />
           <asp:TextBox ID="txResultado" ReadOnly="true" runat="server" />
         </div>
       </div>
