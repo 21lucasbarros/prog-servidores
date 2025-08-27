@@ -11,6 +11,8 @@ Inherits="PrjBaseWeb.index" %>
   <body>
     <div class="grid-background">
       <div class="grid-overlay"></div>
+      <div class="blur blur1"></div>
+      <div class="blur blur2"></div>
     </div>
 
     <form runat="server">
