@@ -18,11 +18,11 @@ namespace PrjCalculadoraWeb
             if(usuarios == null) 
             {
                 usuarios = new List<Usuario>();
-                usuarios.Add(new Usuario("João", "1111111111111", 'M', new DateTime(2004, 03, 02), "joao", "12345"));
-                usuarios.Add(new Usuario("Janaina", "2111111111111", 'F', new DateTime(2004, 03, 02), "janaina", "12345"));
-                usuarios.Add(new Usuario("Carol", "3111111111111", 'F', new DateTime(2004, 03, 02), "carol", "12345"));
-                usuarios.Add(new Usuario("Correia", "4111111111111", 'M', new DateTime(2004, 03, 02), "correia", "12345"));
-                usuarios.Add(new Usuario("Lins", "5111111111111", 'F', new DateTime(2004, 03, 02), "lins", "12345"));
+                usuarios.Add(new Usuario("João", "11111111111", 'M', new DateTime(2004, 03, 02), "joao", "12345"));
+                usuarios.Add(new Usuario("Janaina", "22222222222", 'F', new DateTime(2004, 03, 02), "janaina", "12345"));
+                usuarios.Add(new Usuario("Carol", "33333333333", 'F', new DateTime(2004, 03, 02), "carol", "12345"));
+                usuarios.Add(new Usuario("Correia", "44444444444", 'M', new DateTime(2004, 03, 02), "correia", "12345"));
+                usuarios.Add(new Usuario("Lins", "55555555555", 'F', new DateTime(2004, 03, 02), "lins", "12345"));
             }
         }
 

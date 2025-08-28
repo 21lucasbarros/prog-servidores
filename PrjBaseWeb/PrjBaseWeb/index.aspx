@@ -29,8 +29,17 @@ Inherits="PrjBaseWeb.index" %>
           <asp:TextBox ID="txNome" runat="server" />
           <asp:Label ID="lbErro" runat="server" ForeColor="Red" />
 
-          <asp:Label ID="txBuscar" runat="server" Text="Buscar" />
-          <asp:Button ID="btBuscar" runat="server" Text="Buscar" OnClick="btBusar_Click" />
+          <asp:Label
+            ID="txBuscar"
+            runat="server"
+            Text="Buscar Paciente pelo CPF"
+          />
+          <asp:Button
+            ID="btBuscar"
+            runat="server"
+            Text="Buscar"
+            OnClick="btBuscar_Click"
+          />
         </div>
 
         <div class="form-group">
@@ -119,6 +128,12 @@ Inherits="PrjBaseWeb.index" %>
             Text="Limpar"
             OnClick="Button2_Click"
             CausesValidation="false"
+          />
+          <asp:Button 
+            ID="btExcluir" 
+            runat="server" 
+            Text="Excluir"
+            Enabled="false" OnClick="btExcluir_Click"
           />
         </div>
 

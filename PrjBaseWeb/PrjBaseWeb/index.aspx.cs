@@ -23,6 +23,18 @@ namespace PrjBaseWeb
                 //A area aplication é uma area de dados comum a todos que estão logados. A vantagem de colocar a lista de usuarios na aplication é que ele faz uma carga só.
                 return;
             }
+
+            btExcluir.Enabled = Session["paciente"] != null;
+
+            if (!IsPostBack)
+            {
+                if (pacientes.Count == 0)
+                {
+                    pacientes.Add(new Paciente("Carol", "33333333333", 'F', new DateTime(2004, 03, 02), 55, 1.65f));
+                    pacientes.Add(new Paciente("João", "11111111111", 'M', new DateTime(2004, 03, 02), 70, 1.75f));
+                    pacientes.Add(new Paciente("Janaina", "22222222222", 'F', new DateTime(2004, 03, 02), 60, 1.68f));
+                }
+            }
         }
 
         protected void Button2_Click(object sender, EventArgs e)
@@ -53,50 +65,50 @@ namespace PrjBaseWeb
             // Valida Data de Nascimento
             if (!DateTime.TryParse(txDataNascimento.Text, out DateTime dataNascimento))
             {
-                lbErroDataN.Text = "Data digitada é inválida!";
+            lbErroDataN.Text = "Data digitada é inválida!";
+            temErro = true;
+            }
+            else
+            {
+            var hoje = DateTime.Today;
+            int idade = hoje.Year - dataNascimento.Year;
+            if (dataNascimento > hoje.AddYears(-idade)) idade--;
+
+            if (idade > 100 || idade < 15)
+            {
+                lbErroDataN.Text = "Data inválida: idade deve ser entre 15 e 100 anos.";
                 temErro = true;
             }
             else
             {
-                var hoje = DateTime.Today;
-                int idade = hoje.Year - dataNascimento.Year;
-                if (dataNascimento > hoje.AddYears(-idade)) idade--;
-
-                if (idade > 100 || idade < 15)
-                {
-                    lbErroDataN.Text = "Data inválida: idade deve ser entre 15 e 100 anos.";
-                    temErro = true;
-                }
-                else
-                {
-                    lbErroDataN.Text = "";
-                }
+                lbErroDataN.Text = "";
+            }
             }
 
             // Valida Nome
             string nome = txNome.Text.Trim();
             if (string.IsNullOrWhiteSpace(nome))
             {
-                lbErro.Text = "O nome é obrigatório.";
-                temErro = true;
+            lbErro.Text = "O nome é obrigatório.";
+            temErro = true;
             }
             else
             {
-                lbErro.Text = "";
+            lbErro.Text = "";
             }
 
             // Validação dos RadioButtons de sexo
             char sexo = ' ';
             if (rbFeminino.Checked)
-                sexo = 'F';
+            sexo = 'F';
             else if (rbMasculino.Checked)
-                sexo = 'M';
+            sexo = 'M';
             else if (rbOutro.Checked)
-                sexo = 'O';
+            sexo = 'O';
             else
             {
-                lbErroSexo.Text = "Selecione uma opção de sexo.";
-                temErro = true;
+            lbErroSexo.Text = "Selecione uma opção de sexo.";
+            temErro = true;
             }
 
             // Valida CPF
@@ -104,173 +116,164 @@ namespace PrjBaseWeb
 
             if (string.IsNullOrWhiteSpace(cpf))
             {
-                lbErroCPF.Text = "O CPF é obrigatório.";
+            lbErroCPF.Text = "O CPF é obrigatório.";
+            temErro = true;
+            }
+            else
+            {
+            string cpfNumeros = Pessoa.NormalizarCpf(cpf);
+
+            if (cpfNumeros.Length != 11)
+            {
+                lbErroCPF.Text = "Digite um CPF válido com 11 números.";
                 temErro = true;
             }
             else
             {
-                string cpfNumeros = new string(cpf.Where(char.IsDigit).ToArray());
-
-                if (cpfNumeros.Length != 14)
-                {
-                    lbErroCPF.Text = "Digite um CPF válido com 14 números.";
-                    temErro = true;
-                }
-                else
-                {
-                    lbErroCPF.Text = "";
-                }
+                lbErroCPF.Text = "";
+            }
             }
 
             // Valida Altura
             if (!decimal.TryParse(txAltura.Text, out decimal altura))
             {
-                lbErroAltura.Text = "Informe uma altura válida.";
+            lbErroAltura.Text = "Informe uma altura válida.";
+            temErro = true;
+            }
+            else
+            {
+            if (altura < 1.40m || altura > 2.20m)
+            {
+                lbErroAltura.Text = "Altura deve ser entre 1,40m e 2,20m.";
                 temErro = true;
             }
             else
             {
-                if (altura < 1.40m || altura > 2.20m)
-                {
-                    lbErroAltura.Text = "Altura deve ser entre 1,40m e 2,20m.";
-                    temErro = true;
-                }
-                else
-                {
-                    lbErroAltura.Text = "";
-                }
+                lbErroAltura.Text = "";
+            }
             }
 
             // Valida Peso
             if (!float.TryParse(txPeso.Text.Replace(',', '.'), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float peso))
             {
-                lbErroPeso.Text = "Informe um peso válido.";
-                temErro = true;
+            lbErroPeso.Text = "Informe um peso válido.";
+            temErro = true;
             }
             else
             {
-                lbErroPeso.Text = "";
+            lbErroPeso.Text = "";
             }
 
             if (Session["paciente"] != null)
             {
-                Paciente paciente = (Paciente)Session["paciente"];
-                paciente.Atualiza(peso, (float)altura);
-                /*txResultado.Text = "Paciente atualizado.";*/
-                //Mostrar(paciente); Não fiz ainda
-                return;
+            Paciente paciente = (Paciente)Session["paciente"];
+            paciente.Atualiza(peso, (float)altura);
+            /*txResultado.Text = "Paciente atualizado.";*/
+            //Mostrar(paciente); Não fiz ainda
+            return;
             }
 
             if (!temErro)
             {
-                lbErro.Text = "";
-                lbErroCPF.Text = "";
-                lbErroDataN.Text = "";
-                lbErroAltura.Text = "";
-                lbErroPeso.Text = "";
-                lbErroSexo.Text = "";
+            lbErro.Text = "";
+            lbErroCPF.Text = "";
+            lbErroDataN.Text = "";
+            lbErroAltura.Text = "";
+            lbErroPeso.Text = "";
+            lbErroSexo.Text = "";
 
-                IMC imc = new IMC(peso, (float)altura);
-                string resultado = imc.Diagnostico();
+            IMC imc = new IMC(peso, (float)altura);
+            string resultado = imc.Diagnostico();
 
-                txResultado.Text = $"{ (peso / (float)(altura * altura)):F2} - {resultado}";
+            txResultado.Text = $"{ (peso / (float)(altura * altura)):F2} - {resultado}";
 
-                try
+            try
+            {
+                Paciente p = new Paciente(nome, cpf, sexo, dataNascimento, peso, (float)altura);
+
+                foreach (Paciente paciente in pacientes)
                 {
-                    Paciente p = new Paciente(nome, cpf, sexo, dataNascimento, peso, (float)altura);
-
-                    foreach (Paciente paciente in pacientes)
-                    {
-                        if (cpf.Equals(paciente.Cpf))
-                        {
-                            txResultado.Text = "Paciente já cadastrado";
-                            return;
-                        }
-                    }
-
-                    pacientes.Add(p);
-
-                    txResultado.Text = p.imc.Diagnostico();
-                }
-                catch (Exception ex)
+                if (cpf.Equals(paciente.Cpf))
                 {
-                    txResultado.Text = ex.ToString();
+                    txResultado.Text = "Paciente já cadastrado";
+                    return;
                 }
+                }
+
+                pacientes.Add(p);
+
+                txResultado.Text = p.Diagnostico();
+            }
+            catch (Exception ex)
+            {
+                txResultado.Text = ex.ToString();
+            }
             }
         }
 
         private void Mostrar(Paciente p)
         {
-            txAltura.Text = p.Altura().ToString();
+            txAltura.Text = p.Altura().ToString(System.Globalization.CultureInfo.InvariantCulture);
             txCPF.Text = p.Cpf;
             txDataNascimento.Text = p.DtNascimento.ToString("dd/MM/yyyy");
             txNome.Text = p.Nome;
-            txPeso.Text = p.Peso().ToString();
-
+            txPeso.Text = p.Peso().ToString(System.Globalization.CultureInfo.InvariantCulture);
             txResultado.Text = p.Diagnostico();
 
             rbFeminino.Checked = p.Sexo == 'F';
             rbMasculino.Checked = p.Sexo == 'M';
-            rbOutro.Checked = p.Sexo == '*';
+            rbOutro.Checked = p.Sexo == 'O';
         }
 
         protected void btBuscar_Click(object sender, EventArgs e)
         {
-            string cpfBusca = txCPF.Text.Trim();
+            string cpfBusca = Pessoa.NormalizarCpf(txCPF.Text);
 
             if (string.IsNullOrWhiteSpace(cpfBusca))
             {
                 lbErroCPF.Text = "Informe um CPF para buscar.";
                 return;
             }
-            else
-            {
-                lbErroCPF.Text = "";
-            }
 
-            // Procurar paciente na lista
             Paciente pacienteEncontrado = pacientes.FirstOrDefault(p => p.Cpf == cpfBusca);
 
             if (pacienteEncontrado == null)
             {
                 txResultado.Text = "Paciente não encontrado.";
+                Session["paciente"] = null;
+                btExcluir.Enabled = false;
                 return;
             }
 
-            // Preenche os campos da tela com os dados do paciente encontrado
-            txNome.Text = pacienteEncontrado.Nome;
-            txDataNascimento.Text = pacienteEncontrado.DtNascimento.ToString("dd/MM/yyyy");
-            txPeso.Text = pacienteEncontrado.Peso.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            txAltura.Text = pacienteEncontrado.Altura.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            // Salva na sessão
+            Session["paciente"] = pacienteEncontrado;
+            btExcluir.Enabled = true;
 
-            // Marca o RadioButton correto
-            switch (pacienteEncontrado.Sexo)
-            {
-                case 'F':
-                    rbFeminino.Checked = true;
-                    rbMasculino.Checked = false;
-                    rbOutro.Checked = false;
-                    break;
-                case 'M':
-                    rbFeminino.Checked = false;
-                    rbMasculino.Checked = true;
-                    rbOutro.Checked = false;
-                    break;
-                case 'O':
-                    rbFeminino.Checked = false;
-                    rbMasculino.Checked = false;
-                    rbOutro.Checked = true;
-                    break;
-                default:
-                    rbFeminino.Checked = false;
-                    rbMasculino.Checked = false;
-                    rbOutro.Checked = false;
-                    break;
-            }
-
-            IMC imc = new IMC(pacienteEncontrado.Peso, pacienteEncontrado.Altura);
-            txResultado.Text = $"{(pacienteEncontrado.Peso / (float)(pacienteEncontrado.Altura * pacienteEncontrado.Altura)):F2} - {imc.Diagnostico()}";
+            // Chama o método Mostrar pra preencher os inputs
+            Mostrar(pacienteEncontrado);
         }
 
+        protected void btExcluir_Click(object sender, EventArgs e)
+        {
+            if (Session["paciente"] != null)
+            {
+                Paciente paciente = (Paciente)Session["paciente"];
+
+                pacientes.RemoveAll(p => p.Cpf == paciente.Cpf);
+
+                Session["paciente"] = null;
+
+                Button2_Click(sender, e);
+
+                btExcluir.Enabled = false;
+
+                txResultado.Text = "Paciente excluído com sucesso.";
+            }
+            else
+            {
+                txResultado.Text = "Nenhum paciente selecionado para excluir.";
+                btExcluir.Enabled = false;
+            }
+        }
     }
 }

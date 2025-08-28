@@ -15,9 +15,14 @@ namespace PrjCalculadoraWeb.Classes
         public Pessoa(string nome, string cpf, char sexo, DateTime dtNascimento)
         {
             Nome = nome;
-            Cpf = cpf;
+            Cpf = NormalizarCpf(cpf);
             Sexo = sexo;
             DtNascimento = dtNascimento;
+        }
+
+        public static string NormalizarCpf(string cpf)
+        {
+            return new string(cpf.Where(char.IsDigit).ToArray());
         }
     }
 }
