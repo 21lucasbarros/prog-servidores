@@ -17,7 +17,7 @@ Inherits="PrjBaseWeb.index" %>
 
     <form runat="server">
       <div class="container">
-        <h1>Clinica Emagrecimento</h1>
+        <h1>Clinica de Emagrecimento dos Joões</h1>
 
         <div class="form-group">
           <asp:Label
@@ -28,6 +28,9 @@ Inherits="PrjBaseWeb.index" %>
           />
           <asp:TextBox ID="txNome" runat="server" />
           <asp:Label ID="lbErro" runat="server" ForeColor="Red" />
+
+          <asp:Label ID="txBuscar" runat="server" Text="Buscar" />
+          <asp:Button ID="btBuscar" runat="server" Text="Buscar" OnClick="btBusar_Click" />
         </div>
 
         <div class="form-group">
