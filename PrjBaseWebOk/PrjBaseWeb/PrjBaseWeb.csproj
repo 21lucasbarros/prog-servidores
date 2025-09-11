@@ -73,7 +73,9 @@
     <Compile Include="CadUser.aspx.designer.cs">
       <DependentUpon>CadUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Serializa.cs" />
     <Compile Include="Classes\Usuario.cs" />
+    <Compile Include="Classes\Util.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

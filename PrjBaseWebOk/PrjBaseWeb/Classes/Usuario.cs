@@ -5,7 +5,8 @@ using System.Web;
 
 namespace PrjCalculadoraWeb.Classes
 {
-    public class Usuario : Object, IComparable<Usuario>
+    [Serializable]
+    public class Usuario : IComparable<Usuario>
     {
         public String Nome { get; private set; }
         public String CPF { get; private set; }
@@ -17,6 +18,17 @@ namespace PrjCalculadoraWeb.Classes
 
         private static int contador = 0;
 
+        public static void AjustaId(List<Usuario> lista)
+        {
+            if(lista.Count == 0)
+            {
+                contador = 0;
+                return;
+            }
+            Usuario u = lista[lista.Count - 1];
+            int.TryParse(u.Id, out contador);
+        }
+
         public Usuario(string nome, string cPF, string login, char perfil)
         {
             Nome = nome;
@@ -25,6 +37,17 @@ namespace PrjCalculadoraWeb.Classes
             Perfil = perfil;
             Senha = cPF;
             Id = (++contador).ToString("D4");
+        }
+        
+        public void Atualiza(String nome, char perfil)
+        {
+            Nome = nome;
+            Perfil = perfil;
+        }
+
+        public void AlteraSenha(String senha)
+        {
+            Senha = senha;
         }
 
         public Usuario(string id)
@@ -44,6 +67,7 @@ namespace PrjCalculadoraWeb.Classes
                 Nome, ", ",
                 CPF, ", ",
                 Login, ", ",
+                Perfil, ", ",
                 Senha.Equals(CPF) ? "Não trocou a senha" : "Trocou a senha"
             );
         }

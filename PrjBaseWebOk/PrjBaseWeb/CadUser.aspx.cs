@@ -1,6 +1,7 @@
 ﻿using PrjCalculadoraWeb.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -13,17 +14,31 @@ namespace PrjCalculadoraWeb
     {
         private static List<Usuario> usuarios;
 
+        private String nomeArquivo = "usuarios.dat";
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (usuarios == null)
             {
-                usuarios = new List<Usuario>();
+                if (File.Exists(nomeArquivo))
+                {
+                    usuarios = Serializa.DesserializaUsuario(nomeArquivo);
+                    txRelatorio.Text = Relatorio();
+                }
+                else
+                {
+                    usuarios = new List<Usuario>();
+                }
             }
+
+            btExcluir.Enabled = (Session["usuario"] != null);
         }
 
         protected void btLimpar_Click(object sender, EventArgs e)
         {
-            txCPF.Text =
+            txBusca.Text = 
+                txCPF.Text =
                 txLogin.Text =
                 txNome.Text =
                 lbMensagem.Text = String.Empty;
@@ -32,51 +47,42 @@ namespace PrjCalculadoraWeb
                 rbUSU.Checked = false;
 
             Session["usuario"] = null;
-        }
 
-        private bool ValidarCPF(string cpf)
-        {
-            cpf = new string(cpf.Where(char.IsDigit).ToArray());
+            btExcluir.Enabled = false;
 
-            if (cpf.Length != 11 || cpf.Distinct().Count() == 1)
-                return false;
-
-            int CalcularDigito(int length)
-            {
-                int soma = 0;
-                for (int i = 0; i < length; i++)
-                    soma += (cpf[i] - '0') * (length + 1 - i);
-
-                int resto = soma % 11;
-                return resto < 2 ? 0 : 11 - resto;
-            }
-
-            int digito1 = CalcularDigito(9);
-            int digito2 = CalcularDigito(10);
-
-            return cpf.EndsWith($"{digito1}{digito2}");
+            btOk.Text = "Cadastro";
         }
 
         protected void btOk_Click(object sender, EventArgs e)
         {
-            if (!ValidarCPF(txCPF.Text))
-            {
-                lbMensagem.Text = "CPF inválido";
-                return;
-            }
             if (txNome.Text.Trim().Equals(String.Empty))
             {
                 lbMensagem.Text = "Nome é obrigatório";
                 return;
             }
-            if (txLogin.Text.Trim().Equals(String.Empty))
-            {
-                lbMensagem.Text = "Login é obrigatório";
-                return;
-            }
             if (!rbADM.Checked && !rbUSU.Checked)
             {
                 lbMensagem.Text = "Perfil é obrigatório";
+                return;
+            }
+
+            if(Session["usuario"] != null)
+            {
+                int pos = (int)Session["usuario"];
+                usuarios[pos].Atualiza(txNome.Text, rbADM.Checked ? 'A' : 'U');
+                txRelatorio.Text = Relatorio();
+                Serializa.SerializaUsuario(usuarios, nomeArquivo);
+                return;
+            }
+
+            if (!Util.ValidarCPF(txCPF.Text))
+            {
+                lbMensagem.Text = "CPF inválido";
+                return;
+            }
+            if (txLogin.Text.Trim().Equals(String.Empty))
+            {
+                lbMensagem.Text = "Login é obrigatório";
                 return;
             }
 
@@ -102,6 +108,7 @@ namespace PrjCalculadoraWeb
             usuarios.Add(u);
             usuarios.Sort();
             btLimpar_Click(sender, e);
+            Serializa.SerializaUsuario(usuarios, nomeArquivo);
 
             txRelatorio.Text = Relatorio();
         }
@@ -145,6 +152,22 @@ namespace PrjCalculadoraWeb
 
             Session["usuario"] = ind;
             Mostra(usuarios[ind]);
+            btOk.Text = "Altera";
+            btExcluir.Enabled = true;
+        }
+
+        protected void btExcluir_Click(object sender, EventArgs e)
+        {
+            if(Session["usuario"] == null)
+            {
+                return;
+            }
+
+            int pos = (int)Session["usuario"];
+            usuarios.RemoveAt(pos);
+            btLimpar_Click(sender, e);
+            txRelatorio.Text = Relatorio();
+            Serializa.SerializaUsuario(usuarios, nomeArquivo);
         }
     }
 }

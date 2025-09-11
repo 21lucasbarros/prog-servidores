@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <asp:Button ID="btOk" runat="server" Text="Ok" OnClick="btOk_Click" />
+                <asp:Button ID="btOk" runat="server" Text="Cadastra" OnClick="btOk_Click" />
 
                 <div style="flex-direction: column; gap: 5px;">
                     <asp:Button ID="btBusca" runat="server" Text="Buscar" OnClick="btBusca_Click" />
@@ -52,6 +52,7 @@
 
                 <asp:Label ID="lbMensagem" runat="server" Text="" />
 
+                <asp:Button ID="btExcluir" runat="server" Text="Excluir" style="width: 80px;" OnClick="btExcluir_Click" />
                 <asp:Button ID="btLimpar" runat="server" Text="Limpar" style="width: 80px;" OnClick="btLimpar_Click"/>
             </div>
         </div>
